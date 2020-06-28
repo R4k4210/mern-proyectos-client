@@ -12,6 +12,7 @@ const ListadoProyectos = () => {
     //Obtener proyectos
     useEffect(() => {
         obtenerProyectos();
+        // eslint-disable-next-line
     }, []);
 
     //Chequear que existan proyectos
