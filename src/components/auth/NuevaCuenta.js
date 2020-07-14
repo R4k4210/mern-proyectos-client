@@ -1,12 +1,29 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AlertaContext from '../../context/alertas/alertaContext';
+import AuthContext from '../../context/autenticacion/authContext';
 
-const NuevaCuenta = () => {
+
+const NuevaCuenta = (props) => {
 
     //Extraer valores del context
     const alertaContext = useContext(AlertaContext);
     const {alerta, mostrarAlerta} = alertaContext;
+
+    const authContext = useContext(AuthContext);
+    const {registrarUsuario, mensaje, autenticado} = authContext;
+
+    //En caso de que el usuario se haya registrado o sea un registro duplicado
+    useEffect(() => {
+        if(autenticado){
+            props.history.push("/proyectos")
+        }
+        if(mensaje){
+            mostrarAlerta(mensaje.msg, mensaje.categoria);
+        }
+        // eslint-disable-next-line
+    }, [mensaje, autenticado, props.history]);
+
 
     const [usuario, guardarUsuario] = useState({
         nombre: '',
@@ -38,9 +55,16 @@ const NuevaCuenta = () => {
             return;
         }
         //Los 2 password son iguales
-
+        if(password.trim() !== confirmar.trim()){
+            mostrarAlerta("Los password deben ser iguales", "alerta-error");
+            return;
+        }
         //Pasarlo al action
-
+        registrarUsuario({
+            nombre,
+            email,
+            password
+        });
     }
 
     return (  
@@ -53,17 +77,6 @@ const NuevaCuenta = () => {
                     onSubmit={onSubmit}
                 >
                     <div className='campo-form'>
-                        <label htmlFor="email">Email</label>
-                        <input 
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Tu email"
-                            onChange={onChangeInput}
-                            value={email}
-                        />
-                    </div>
-                    <div className='campo-form'>
                         <label htmlFor="nombre">Nombre</label>
                         <input 
                             type="text"
@@ -72,6 +85,17 @@ const NuevaCuenta = () => {
                             placeholder="Tu nombre"
                             onChange={onChangeInput}
                             value={nombre}
+                        />
+                    </div>
+                    <div className='campo-form'>
+                        <label htmlFor="email">Email</label>
+                        <input 
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Tu email"
+                            onChange={onChangeInput}
+                            value={email}
                         />
                     </div>
                     <div className='campo-form'>
