@@ -17,8 +17,7 @@ export default (state, action) => {
                 ...state,
                 cargando: false,
                 autenticado: true,
-                mensaje: null,
-                cargando: false
+                mensaje: null
             }
         case CERRAR_SESION:
         case LOGIN_ERROR:

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, Component } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import AuthContext from '../../context/autenticacion/authContext';
 
@@ -11,6 +11,7 @@ const RutaPrivada = ({ component: Component, ...props }) => {
     //Con esto forzamos que autenticado persista, sino al refrescar nos envia al login.
     useEffect(() => {
         usuarioAutenticado();
+        // eslint-disable-next-line
     }, []);
 
     return (
