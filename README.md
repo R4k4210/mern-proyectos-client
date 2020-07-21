@@ -2,6 +2,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+Front end react, utilizado para la gestion de proyectos y tareas.
+Desplegada en Netlify: https://gracious-spence-78c2ed.netlify.app/
+
+## Available Scripts
+
 In the project directory, you can run:
 
 ### `npm start`
